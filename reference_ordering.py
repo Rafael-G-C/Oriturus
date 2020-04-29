@@ -1,11 +1,6 @@
 import cont_refs as cr
 import copy as cp
-def ref_indexer():
-    #read the file
-    path = "/home/kilimanjaro/Documents/acs/Compilacion_de_texto.txt"
-    with open (path) as article:
-        article_text = article.readlines()
-        article.close() 
+def ref_indexer(article_text):
     #text = "hello [1,2] and [YOLE] and [Yile,Alo] but [2-4]"
     #if you see "[" start reference and read until "," read the other one or "]" to finish the reference
     ref_looker = 0
@@ -60,5 +55,11 @@ def ref_indexer():
         #print(f"{key},{holding_refs[key]}")
     #print(holding_refs)
 if __name__ == "__main__":
-    holding_refs = ref_indexer()
+    
+    path_to_file = "path_to_file"
+    #read the file
+    with open (path_to_file,"r") as article:
+        article_text = article.readlines()
+    
+    holding_refs = ref_indexer(article_text)
     print(holding_refs)
