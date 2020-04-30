@@ -7,8 +7,8 @@ def adding_the_whole(string,path_to_file,name_of_file):
     with open(path_to_file+"ORDERED_"+name_of_file,"a") as full_text:
         full_text.write(string)
 
-path_to_file = "/home/kilimanjaro/Documents/acs/"
-name_of_file = "big_o_text.txt"
+path_to_file = ""
+name_of_file = "test.txt"
 
 #strip bibliography from main text
 with open(path_to_file+name_of_file,"r") as file:

@@ -60,7 +60,7 @@ def ref_indexer(article_text):
     #print(holding_refs)
 if __name__ == "__main__":
     print("reference_ordering is running as main")
-    path_to_file = "/home/kilimanjaro/Documents/acs/super_impor.txt"
+    path_to_file = ""
     #read the file
     with open (path_to_file,"r") as article:
         article_text = article.readlines()
