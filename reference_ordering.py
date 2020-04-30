@@ -17,6 +17,7 @@ def ref_indexer(article_text):
             if char == "[":
                 ref_looker = 1
             elif char == "]":
+                ref_as_word.strip()
                 if ref_as_word not in holding_refs:
                     if last_char_signaler == 1:
                         last_char = ref_as_word
@@ -36,6 +37,7 @@ def ref_indexer(article_text):
                     ref_as_word = ""
                     ref_looker = 0
             elif ref_looker == 1:
+                ref_as_word.strip()
                 if char == ",":
                     if ref_as_word not in holding_refs:
                         holding_refs[ref_as_word] = ref_index

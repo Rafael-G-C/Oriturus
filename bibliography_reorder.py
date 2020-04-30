@@ -1,4 +1,4 @@
-def bibliography_maker(path_to_file,name_of_file,ref_order_dict):
+def bibliography_maker(file_lines,bib_line,path_to_file,name_of_file,ref_order_dict):
     #open bibliography
     
     """def restructured_ref(ref): #should not really restructure check it out
@@ -9,9 +9,6 @@ def bibliography_maker(path_to_file,name_of_file,ref_order_dict):
     def ordered_bibliography_maker(string):
         with open(path_to_file+"raw_bib_"+name_of_file,"a+") as ordered_bibliography:
             ordered_bibliography.write(string)
-    
-    with open (path_to_file+"raw_bib_"+name_of_file,"r") as bibliography:
-        bib_ref = bibliography.readlines()
 
     #ref_order_dict = {"YOLE" : 1, "Yale" :2}
     #string_one = ["[Yale] Author year","[YOLE] Author year","[Yoel] Author year"]
@@ -23,15 +20,16 @@ def bibliography_maker(path_to_file,name_of_file,ref_order_dict):
     #key_counter = 0
     unordered_bib = {}
     ordered_bibliography_maker("ORDERED_BIB\n")
-    for string in bib_ref:
-        call_ref = string.split("|")
-        unordered_bib[call_ref[0]] = call_ref[1]
+    for linenum, string in enumerate(file_lines):
+        if bib_line < linenum:
+            call_ref = string.split("|")
+            unordered_bib[call_ref[0]] = call_ref[1]
     for key in ref_order_dict:
         if key in unordered_bib:
             ordered_bibliography_maker(f"{key}|[{str(ref_index)}]{unordered_bib[key]}")
             ref_index +=1
         else:
-            ordered_bibliography_maker(f"****** {key} not found *****")
+            ordered_bibliography_maker(f"****** {key} not found *****\n")
 
      
     """while True:
