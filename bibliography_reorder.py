@@ -34,7 +34,8 @@ def bibliography_maker(file_lines,bib_line,path_to_file,name_of_file,ref_order_d
             ordered_bibliography_maker(f"{key}|[{str(ref_index)}] {unordered_bib[key]}")
             ref_index +=1
         else:
-            ordered_bibliography_maker(f"****** {key} not found *****\n")
+            ordered_bibliography_maker(f"{key}|[{ref_index}] {'ERROR! NOT FOUND '*10}\n")
+            ref_index += 1
 
      
 if __name__ == "__main__":

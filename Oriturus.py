@@ -33,9 +33,9 @@ for line in ordered_bib:
         start_writing = 1
         continue
     if start_writing == 1:
-        if "not found"in line:
+        if "NOT FOUND"in line:
             print(line)
-            continue
+
         just_ordered_ref = line.split("|")
         adding_the_whole(just_ordered_ref[1],path_to_file,name_of_file)
 
