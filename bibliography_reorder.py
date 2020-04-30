@@ -1,13 +1,17 @@
 def bibliography_maker(file_lines,bib_line,path_to_file,name_of_file,ref_order_dict):
     #open bibliography
     
-    """def restructured_ref(ref): #should not really restructure check it out
-        stripped_ref = ref.strip()
-        r_ref = "["+stripped_ref+"]"
-        return r_ref """
+    def ref_stripper(ref): #should not really restructure check it out
+        stripped_ref = ""
+        for char in ref:
+            if char == "[" or char == "]":
+                continue
+            else:
+                stripped_ref += char
+        return stripped_ref
     
     def ordered_bibliography_maker(string):
-        with open(path_to_file+"raw_bib_"+name_of_file,"a+") as ordered_bibliography:
+        with open(path_to_file+"RAW_BIB_"+name_of_file,"a+") as ordered_bibliography:
             ordered_bibliography.write(string)
 
     #ref_order_dict = {"YOLE" : 1, "Yale" :2}
@@ -22,34 +26,19 @@ def bibliography_maker(file_lines,bib_line,path_to_file,name_of_file,ref_order_d
     ordered_bibliography_maker("ORDERED_BIB\n")
     for linenum, string in enumerate(file_lines):
         if bib_line < linenum:
-            call_ref = string.split("|")
-            unordered_bib[call_ref[0]] = call_ref[1]
+            call_ref = string.split(" ",1)
+            stripped_ref = ref_stripper(call_ref[0])
+            unordered_bib[stripped_ref] = call_ref[1]
     for key in ref_order_dict:
         if key in unordered_bib:
-            ordered_bibliography_maker(f"{key}|[{str(ref_index)}]{unordered_bib[key]}")
+            ordered_bibliography_maker(f"{key}|[{str(ref_index)}] {unordered_bib[key]}")
             ref_index +=1
         else:
             ordered_bibliography_maker(f"****** {key} not found *****\n")
 
      
-    """while True:
-        if key_counter == len(ref_order_dict):
-            break 
-        for key in ref_order_dict:
-            if breaker == 0:
-                
-            r_key = restructured_ref(key)
-            key_counter += 1
-            for string in bib_ref:
-                splitstring.split("|")
-                if r_key in string:
-                    print()
-                    #ordered_bibliography_maker(f"[{ref_order_dict[key]}]| {string}")
-                    breaker = 1
-                    break
-                breaker = 0 """
 if __name__ == "__main__":
-    print("bibliogrpahy_reorder running as main")
+    print("bibliography_reorder running as main")
     pass
  
 

@@ -5,7 +5,7 @@ def text_remaker(path_to_file,name_of_file,file_lines,ref_order_dict,bib_line):
         with open(path+output_text,"a+") as ordered:
             ordered.write(new_string)
 
-    output_text = "ordered_"+name_of_file #need a name
+    output_text = "ORDERED_"+name_of_file #need a name
 
     with open (path_to_file+name_of_file) as article:
         article_text = article.readlines()
