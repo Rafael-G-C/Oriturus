@@ -8,8 +8,10 @@ def ref_indexer(article_text):
     ref_index = 1
     ref_as_word = ""
     last_char_signaler = 0
-    for text in article_text:
-        if "Bibliography" in text:
+    bib_line = 0
+    for linenum, text in enumerate(article_text):
+        if "!!ref_start" in text:
+            bib_line = linenum
             break
         for char in text:
             if char == "[":
@@ -49,17 +51,17 @@ def ref_indexer(article_text):
                     #print(char,end="")
                     ref_as_word += char
 
-    return holding_refs
+    return holding_refs, bib_line
     #print("article_ref,first_instance")
     #for key in holding_refs:
         #print(f"{key},{holding_refs[key]}")
     #print(holding_refs)
 if __name__ == "__main__":
     
-    path_to_file = "path_to_file"
+    path_to_file = "/home/kilimanjaro/Documents/acs/super_impor.txt"
     #read the file
     with open (path_to_file,"r") as article:
         article_text = article.readlines()
     
-    holding_refs = ref_indexer(article_text)
+    holding_refs,bib_line = ref_indexer(article_text)
     print(holding_refs)
