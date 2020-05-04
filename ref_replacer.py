@@ -1,23 +1,20 @@
-def text_writer(path_to_file,name_of_file,file_lines,ref_order_dict,bib_line):
+def text_writer(caught_ref,ref_order_dict):
     
-    def text_rewriter(new_line,path_to_file,name_of_file):
+    """def text_rewriter(new_line,path_to_file,name_of_file):
         with open(path_to_file+"ORDERED_"+name_of_file,"a+") as ordered:
-            ordered.write(new_line)
-
+            ordered.write(new_line """
 
     recieve_input = 0
     ref_constructor = ""
     new_line = ""
-    for linenum, line in enumerate(file_lines):
-        if linenum == bib_line:
-            break
+    for line in caught_ref:
         for char in line:
             if char == "[":
                 new_line += char
                 recieve_input = 1
             elif char == "]":
                 new_line += str(ref_order_dict[ref_constructor])
-                new_line += char
+                new_line += char + " "
                 recieve_input = 0
                 ref_constructor = ""
             elif recieve_input == 1:
@@ -31,7 +28,8 @@ def text_writer(path_to_file,name_of_file,file_lines,ref_order_dict,bib_line):
             else:
                 new_line += char
         
-        text_rewriter(new_line,path_to_file,name_of_file)
+        #text_rewriter(new_line,path_to_file,name_of_file)
+        print(new_line,end="")
         new_line = ""
 
 if __name__ == "__main__":
