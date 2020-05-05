@@ -1,12 +1,29 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada dui ipsum, at placerat erat facilisis eget. Cras imperdiet gravida leo, et semper tellus euismod in. Sed pulvinar diam et sapien euismod aliquam. Quisque in diam lectus. Morbi nec tortor egestas, venenatis [QQ]odio sed, cursus sapien. Nunc dictum dui sodales sem commodo, vel hendrerit eros vehicula. Mauris leo elit, euismod ac bibendum ut, vulputate eu massa.
+!!fig>>Figure !
+!!sec>>Seccion !
+!!tab>>Table !
+!!orit>>Zacatonero Serrano tambien conocido como Oriturus superciliosus!
+!!stop>>RAINING!!
+tortor egestas, [stop.] venenatis [QQ]odio sed, cursus sapien. Nunc dictum dui sodales sem commodo, vel hendrerit eros vehicula. Mauris leo elit, euismod ac bibendum ut, vulputate eu massa.
 
+[fig.birds] birds flying
+
+[sec.bird]
+!!brd>>.!
+[sec.bird] [brd.brd1]
 Class aptent taciti sociosqu ad litora torquent per conubia [bird1-bird3]nostra, per inceptos himenaeos. Proin sit amet lacus suscipit massa consectetur sollicitudin vel nec ante. Pellentesque vestibulum velit et leo malesuada luctus. Nam eleifend ac augue suscipit tempor. Sed rutrum egestas arcu, in sodales mauris posuere vel. Ut at sagittis augue. Nunc tortor sem, elementum a pellentesque ac, eleifend a quam. Donec quis finibus elit. Aliquam sit amet ex augue. Nullam porta erat ligula, vitae malesuada sapien porta a. Pellentesque nunc ligula, tempor ac metus pharetra, ultrices dignissim urna. Praesent elit est, pellentesque a tristique vitae, ultricies vitae mi. Morbi massa justo, blandit vel rhoncus eget, mattis a mi.
 
-Praesent eget mollis massa. Duis vestibulum velit et felis dapibus vulputate. [A]In hac habitasse platea dictumst. Morbi nec diam purus. Sed vitae viverra dui. In eu scelerisque nunc. Fusce non vulputate urna. Vestibulum egestas ligula vel elit maximus, non pellentesque lectus ullamcorper. In vel odio ut felis ultrices lobortis volutpat eget massa. Sed eu sagittis elit, quis cursus felis. Sed tincidunt lobortis porta.
+Praesent eget [stop.] mollis massa. Duis vestibulum velit et felis dapibus vulputate. [A]In hac habitasse platea dictumst. Morbi nec diam purus. Sed vitae viverra dui. In eu scelerisque nunc. Fusce non vulputate urna. Vestibulum egestas ligula vel elit maximus, non pellentesque lectus ullamcorper. In vel odio ut felis ultrices lobortis volutpat eget massa. Sed eu sagittis elit, quis cursus felis. Sed tincidunt lobortis porta.
 
-Aenean aliquam scelerisque tortor eget gravida. Donec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis purus quis tellus convallis auctor. Donec a ligula sodales nisi vestibulum rutrum[ 23 ]. Proin ante elit, vehicula nec vestibulum nec, laoreet et nisi. Integer sollicitudin, velit sed elementum semper, magna massa dapibus quam, eu tempus lacus justo vel sapien.
+
+[fig.birds2] birds walking
+
+Aenean aliquam scelerisque tortor eget gravida. Donec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis purus quis tellus convallis auctor. Donec a ligula sodales nisi vestibulum rutrum[23]. Proin ante elit, vehicula nec vestibulum nec, laoreet et nisi. Integer sollicitudin, velit sed elementum semper, magna massa dapibus quam, eu tempus lacus justo vel sapien.
+
+[tab.wings] birds singing
 
 Maecenas convallis orci nulla, tristique tempor lorem molestie in. Quisque eget sodales elit[21]. Phasellus vehicula accumsan purus in molestie. Nulla nec auctor tortor, non ultricies nisi. Sed ex dui, gravida iaculis varius id, commodo non arcu. Quisque in tempus orci. Quisque rutrum mollis lectus, in lacinia leo tincidunt id. Curabitur aliquet turpis a purus elementum ullamcorper. Pellentesque quis tortor eu ligula aliquam sollicitudin. Phasellus sit amet purus rutrum, gravida neque sit amet, sagittis quam
+
+[orit.]
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada dui ipsum, at placerat erat facilisis eget. Cras imperdiet gravida leo, et semper tellus euismod in. Sed pulvinar diam et sapien euismod aliquam. Quisque in diam lectus. Morbi nec tortor egestas, venenatis odio sed, cursus sapien. Nunc dictum dui sodales sem commodo, vel hendrerit eros vehicula. Mauris leo elit, euismod ac bibendum ut, vulputate eu massa[22].
 

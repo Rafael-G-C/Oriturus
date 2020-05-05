@@ -13,8 +13,37 @@ class tag_object():
             self.ref_info_dict[ref] = ref_index + 1
 
 
-def ref_adder(caught_string):
-    pass
+def ref_adder(caught_string,ref_info_dict,ref_index):
+    category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # complicated type ref
+    if category_lookup == None:
+        pass
+    else:
+        ref_info_dict,ref_index = ro.ref_indexer(category_lookup.group(1),ref_info_dict,ref_index)
+        return ref_info_dict, ref_index
+    
+    
+    category_lookup = re.search("\[(.+)\]",caught_string) # simple type ref
+    if category_lookup.group(1) not in ref_info_dict:
+        ref_info_dict[category_lookup.group(1)] = ref_index
+        ref_index += 1
+        return ref_info_dict, ref_index
+    else:
+        return ref_info_dict, ref_index
+
+def ref_replacer(caught_string,ref_info_dict):
+    category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # complicated type ref
+    if category_lookup == None:
+        pass
+    else:
+        replaced_string = rp.text_writer(category_lookup.group(1),ref_info_dict)
+        return replaced_string
+    
+    category_lookup = re.search("\[(.+)\]",caught_string) # simple type ref
+    if category_lookup.group(1) not in ref_info_dict:
+        print("ERROR!!")
+    else:
+        replaced_string = str(f"[{ref_info_dict[category_lookup.group(1)]}]")
+        return replaced_string
 
 def tag_adder(caught_string,tag_dict):
     word_constructor = ""
@@ -52,33 +81,31 @@ def tag_replacer(caught_string,tag_dict):
                 tag_index_constructor.append(char)
                 word_constructor = ""
         tag_index_constructor.append(str(tag_dict[tag_caller.group(1)].ref_info_dict[word_constructor]))
-        print(f'{tag_dict[tag_caller.group(1)].tag_long} {"".join(tag_index_constructor)}',end=" ")
-        return
+        string = f'{tag_dict[tag_caller.group(1)].tag_long}{"".join(tag_index_constructor)}'
+        return string
     
     tag_caller = re.search("\[(.+)\.(.+)\]",caught_string)
     if tag_caller == None:
         pass
     else:
-        print(f"{tag_dict[tag_caller.group(1)].tag_long} {tag_dict[tag_caller.group(1)].ref_info_dict[tag_caller.group(2)]}.",end=" ")
-        return
+        string = f"{tag_dict[tag_caller.group(1)].tag_long}{tag_dict[tag_caller.group(1)].ref_info_dict[tag_caller.group(2)]}"
+        return string
     tag_caller = re.search("\[(.+)\.]",caught_string)
-    print(f"{tag_dict[tag_caller.group(1)].tag_long}",end=" ")
+    string = f"{tag_dict[tag_caller.group(1)].tag_long}"
+    return string
 
 
 
 
-file_lines = ["[azulero] h! [t.REF-BLUE,ALL-REF] DONDE","[good_bye,no1-no5,no5-no7,si] excuse me [no1-no3,hello1-hello3] DONE [azulero]","[t.BLUE] DONE","[fig.] D [fig.REF-AZUL] O [fig.AZUL] N [fig.REF] E im not a bird stop saying it [t.REF].","!!t-Table","[t.BLUE]","[hello] QQQQ PPPPP","!!fig-Figure","tables [good_bye] tttttttt","tobles aaaaaa"]
+file_lines = ["!!t>>A!","!!nt>>B!","!!sb>>.!","!!fig>>D!","[nt.add] [sb.uff] [azulero] h! [t.REF-BLUE,ALL-REF]DONDE","[good_bye,no1-no5,no5-no7,si]excuse me [no1-no3,hello1-hello3] DONE [azulero]","[t.BLUE] DONE","[fig.] D [fig.REF-AZUL] O [fig.AZUL] N [fig.REF] E im not a bird stop saying it [t.REF].","[t.BLUE]","aaa [hello] QQQQ PPPPP","tables [good_bye] tttttttt","tobles aaaaaa"]
 tag_dict = {}
 ref_info_dict = {}
 volatile_dict = {}
-lines_to_ignore = []
 ref_index = 1
 
 #making tags
 for line in file_lines:
-    line_as_strings = line.split()
-    for string in line_as_strings:
-        tag_catcher = re.search("^!{2}(.+)-{1}(.+)",string)
+        tag_catcher = re.search("^!{2}(.+)>>{1}(.+)!" ,line)
         if tag_catcher == None:
             continue
         else:
@@ -102,7 +129,7 @@ for line in file_lines:
         if category_lookup == None:
             pass
         else:
-            ref_info_dict,ref_index = ro.ref_indexer(string,ref_info_dict,ref_index)
+            ref_info_dict,ref_index = ref_adder(string,ref_info_dict,ref_index)
             continue
         
         continue
@@ -110,28 +137,47 @@ for line in file_lines:
 
 #WRITTING
 for line in file_lines:
+    tag_catcher = re.search("^!{2}(.+)>>{1}(.+)!",line)
+    if tag_catcher == None:
+        pass
+    else:
+        continue
+
     line_as_strings = line.split()
     for string in line_as_strings:
 
-        tag_catcher = re.search("^!{2}(.+)-{1}(.+)",string)
-        if tag_catcher == None:
-            pass
-        else:
-            continue
+        
 
-        category_lookup = re.search("\[(.+)\.(.+)?\]",string)
+        category_lookup = re.search("(.+)?\[(.+)\.(.+)?\](.+)?",string)
         if category_lookup == None:
             pass
         else:
-            tag_replacer(string,tag_dict)
+            string = tag_replacer(string,tag_dict)
+            if category_lookup.group(1) == None:
+                pass
+            else:
+                string = category_lookup.group(1) + string
+            if category_lookup.group(4) == None:
+                pass
+            else:
+                string = string + category_lookup.group(4)
+            
+            print(string,end=" ")
             continue
         
-        category_lookup = re.search("\[(.+)\]",string)
+        category_lookup = re.search("(.+)?\[(.+)\](.+)?",string)
         if category_lookup == None:
             pass
         else:
-            rp.text_writer(string,ref_info_dict)
-            continue
+            string = ref_replacer(string,ref_info_dict)
+            if category_lookup.group(1) == None:
+                pass
+            else:
+                string = category_lookup.group(1) + string
+            if category_lookup.group(3) == None:
+                pass
+            else:
+                string = string + category_lookup.group(3)
         
         print(string,end=" ")
 #WRITTING
