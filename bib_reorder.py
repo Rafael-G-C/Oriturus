@@ -20,7 +20,7 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
         with open(path_to_file+"RAW_BIB_"+name_of_file,"a+") as ordered_bibliography:
             ordered_bibliography.write(line)
     
-    def adding_the_whole(line):
+    def add_to_text(line):
         with open(path_to_file+"ORDERED_"+name_of_file,"a") as full_text:
             full_text.write(line)
 
@@ -43,24 +43,26 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
         
         call_ref = line.split(" ",1)
         stripped_ref,error_code = ref_stripper(call_ref[0])
+        
         if error_code == 1:
             line = line.strip("\n")
             error_message_one = (f"|| ERROR! CONTAINS EXTRA WHITESPACES OR BRAQUETS || {line}\n")
             ordered_bibliography_maker(error_message_one)
-            adding_the_whole(error_message_one)
+            add_to_text(error_message_one)
             print(error_message_one)
             continue
+        
         unordered_bib[stripped_ref] = call_ref[1]
     
     for key in ref_order_dict:
         if key in unordered_bib:
             ordered_bibliography_maker(f"{key}|[{str(ref_index)}] {unordered_bib[key]}")
-            adding_the_whole(f"[{str(ref_index)}] {unordered_bib[key]}")
+            add_to_text(f"[{str(ref_index)}] {unordered_bib[key]}")
             ref_index +=1
         else:
             error_message_two = (f"|| ERROR! NOT FOUND || {key}|[{ref_index}]\n")
             ordered_bibliography_maker(error_message_two)
-            adding_the_whole(error_message_two)
+            add_to_text(error_message_two)
             print(error_message_two)
             ref_index += 1
 

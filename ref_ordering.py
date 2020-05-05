@@ -1,5 +1,9 @@
 import cont_refs as cr
 import copy as cp
+# because complicated type refs ex [REF1,REF2-REF3,REF4] may contain multiple and different combinations of "," and "-" and references then
+#we need to look re write the refs from each char and stop whenever we see a "," "-" or "]" and see if the re written ref is in the dictionary if it's not then
+#add it, otherwise ignore it
+
 def ref_indexer(caught_ref,full_dict,ref_index):
     volatile_dict = {}
     ref_constructor = ""
@@ -34,6 +38,8 @@ def ref_indexer(caught_ref,full_dict,ref_index):
                 ref_constructor = ""
                 continue
 
+        #hyphened references start at one reference and end at another reference many numbers after the last one ex. [REF1-REF5]
+        #we need to add these middle refs into the dictionary ex REF1 REF2 REF3 REF4 REF5
         if char == "-":
             last_char_signaler = 1
             previous_char = cp.deepcopy(ref_constructor)
