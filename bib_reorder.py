@@ -1,7 +1,8 @@
 def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
 
-    
-    def ref_stripper(ref): #should not really restructure check it out
+#the script that writes the bibliography in order
+
+    def ref_stripper(ref): #strips the braquets from the ref, if there are more braquets than it should ir sends an error code
         stripped_ref = ""
         pass_catcher = 0
         error_code = 0
@@ -16,15 +17,15 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
         return stripped_ref,error_code
     
     
-    def ordered_bibliography_maker(line):
+    def ordered_bibliography_maker(line): #adds text to the bib file
         with open(path_to_file+"RAW_BIB_"+name_of_file,"a+") as ordered_bibliography:
             ordered_bibliography.write(line)
     
-    def add_to_text(line):
+    def add_to_text(line): #adds text to the main file
         with open(path_to_file+"ORDERED_"+name_of_file,"a") as full_text:
             full_text.write(line)
 
-    #grab the bibliography and print the references in order
+    
 
 
     ref_index = 1
@@ -32,7 +33,7 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
     bib_start = 0
     for line in file_lines:
         
-        if "!!ref_start" in line:
+        if "!!ref_start" in line: #start looking for refs after !!ref_start
             bib_start = 1
             continue
         else:
@@ -41,10 +42,10 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
             else:
                 continue
         
-        call_ref = line.split(" ",1)
-        stripped_ref,error_code = ref_stripper(call_ref[0])
+        call_ref = line.split(" ",1) #the refs have the format [REF] words so it can be splitted at the first space
+        stripped_ref,error_code = ref_stripper(call_ref[0]) #return REF and check if something is wrong
         
-        if error_code == 1:
+        if error_code == 1: #print error message and write it to the file and the bib file
             line = line.strip("\n")
             error_message_one = (f"|| ERROR! CONTAINS EXTRA WHITESPACES OR BRAQUETS || {line}\n")
             ordered_bibliography_maker(error_message_one)
@@ -52,14 +53,14 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
             print(error_message_one)
             continue
         
-        unordered_bib[stripped_ref] = call_ref[1]
+        unordered_bib[stripped_ref] = call_ref[1] #add REF as a key to a dictionary that has words as value
     
-    for key in ref_order_dict:
-        if key in unordered_bib:
+    for key in ref_order_dict: #for every key in the ordered dict 
+        if key in unordered_bib: #check every key in the dictionary that was just made and if they match write the ordered ref
             ordered_bibliography_maker(f"{key}|[{str(ref_index)}] {unordered_bib[key]}")
             add_to_text(f"[{str(ref_index)}] {unordered_bib[key]}")
             ref_index +=1
-        else:
+        else: #otherwise send the error message
             error_message_two = (f"|| ERROR! NOT FOUND || {key}|[{ref_index}]\n")
             ordered_bibliography_maker(error_message_two)
             add_to_text(error_message_two)

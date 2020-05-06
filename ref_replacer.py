@@ -1,26 +1,20 @@
 def text_writer(caught_ref,full_dict):
     
-    """def text_rewriter(new_line,path_to_file,name_of_file):
-        with open(path_to_file+"ORDERED_"+name_of_file,"a+") as ordered:
-            ordered.write(new_line """
-            #text_rewriter(new_line,path_to_file,name_of_file)
-
-    
     ref_constructor = ""
     new_line = ""
     
     for char in caught_ref:
-        if char != "]" and char != "," and char != "-" :
+        if char != "]" and char != "," and char != "-" : #if the char isn't any terminator
             pass
         else:
-            new_line += str(full_dict[ref_constructor])
-            new_line += char
+            new_line += str(full_dict[ref_constructor]) #if you see any terminator look for it in the dict and write its index
+            new_line += char #add the char that triggered this statement
             ref_constructor = ""
             continue
 
-        ref_constructor += char
+        ref_constructor += char #construct the reference
 
-    new_line = "[" + new_line
+    new_line = "[" + new_line #the caught refs come as REF,REF] so [ is needed
     return new_line
 
 if __name__ == "__main__":

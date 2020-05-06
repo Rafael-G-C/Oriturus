@@ -102,3 +102,6 @@ def oriturus_read(file_lines,ref_start_signaler):
             
     # READING 
     return tag_dict,ref_info_dict,ref_start_signaler
+
+if __name__ == "__main__":
+    print("Oriturus_read running as main")
