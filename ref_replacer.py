@@ -1,4 +1,4 @@
-def text_writer(caught_ref,full_dict):
+def text_writer(caught_ref,full_list):
     
     ref_constructor = ""
     new_line = ""
@@ -7,7 +7,7 @@ def text_writer(caught_ref,full_dict):
         if char != "]" and char != "," and char != "-" : #if the char isn't any terminator
             pass
         else:
-            new_line += str(full_dict[ref_constructor]) #if you see any terminator look for it in the dict and write its index
+            new_line += str(full_list.index(ref_constructor)+1) #if you see any terminator look for it in the dict and write its index
             new_line += char #add the char that triggered this statement
             ref_constructor = ""
             continue

@@ -2,7 +2,7 @@ import ref_replacer as rp
 import re
 # Oriturus sends every line in the file and it may fall into the tag category [tag.name] or the ref category [REF]
 #oriturus write checks which category is and writes the corresponding information
-def oriturus_write(line,tag_dict,ref_info_dict,linenum):
+def oriturus_write(line,tag_dict,ref_list,linenum):
     #
     def tag_replacer(caught_string,tag_dict,linenum):
         try:
@@ -17,7 +17,7 @@ def oriturus_write(line,tag_dict,ref_info_dict,linenum):
                     if char != "," and char != "-" and char != "]":
                         word_constructor += char
                     else:
-                        tag_index_constructor.append(str(tag_dict[tag_caller.group(1)].ref_info_dict[word_constructor]))
+                        tag_index_constructor.append(str(tag_dict[tag_caller.group(1)].ref_list.index(word_constructor)+1))
                         tag_index_constructor.append(char)
                         word_constructor = ""
                 joined_list = "".join(tag_index_constructor)
@@ -30,7 +30,7 @@ def oriturus_write(line,tag_dict,ref_info_dict,linenum):
             if tag_caller == None:
                 pass
             else:
-                new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{tag_dict[tag_caller.group(1)].ref_info_dict[tag_caller.group(2)]}"
+                new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{tag_dict[tag_caller.group(1)].ref_list.index(tag_caller.group(2))+1}"
                 return new_string
             
             #we just print the tag long
@@ -38,21 +38,20 @@ def oriturus_write(line,tag_dict,ref_info_dict,linenum):
             new_string = f"{tag_dict[tag_caller.group(1)].tag_long}"
             return new_string
         except:
-            print(f'ERROR! line {linenum} "{tag_caller.group(1)}." tag not found make sure to initalize it with !!{tag_caller.group(1)}>>some_name!')
             return "ERROR!"
 
-    def ref_replacer(caught_string,ref_info_dict):
+    def ref_replacer(caught_string,ref_list):
         category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # complicated type ref [REF1,REF2-REF3,REF4]
         #group 1 catches REF1,REF2-REF3,REF4]
         if category_lookup == None:
             pass
         else:
-            replaced_string = rp.text_writer(category_lookup.group(1),ref_info_dict)
+            replaced_string = rp.text_writer(category_lookup.group(1),ref_list)
             return replaced_string
 
         category_lookup = re.search("\[(.+)\]",caught_string) # simple type ref [REF1]
         #group 1 catches REF1
-        replaced_string = str(f"[{ref_info_dict[category_lookup.group(1)]}]")
+        replaced_string = str(f"[{ref_list.index(category_lookup.group(1))+1}]")
         return replaced_string
 
     #WRITTING
@@ -70,7 +69,7 @@ def oriturus_write(line,tag_dict,ref_info_dict,linenum):
             string == "ERROR!"
             continue
 
-        category_lookup = re.search("(.+)?\[(.+)\.(.+)?\](.+)?",string)
+        category_lookup = re.search("(.+)?\[(.+)\.(.+)?\](.+)?",string) #tag catcher
         if category_lookup == None:
             pass
         else:
@@ -88,11 +87,11 @@ def oriturus_write(line,tag_dict,ref_info_dict,linenum):
             string = ""
             continue
         
-        category_lookup = re.search("(.+)?\[(.+)\](.+)?",string)
+        category_lookup = re.search("(.+)?\[(.+)\](.+)?",string) # ref catcher
         if category_lookup == None:
             pass
         else:
-            string = ref_replacer(string,ref_info_dict)
+            string = ref_replacer(string,ref_list)
             if category_lookup.group(1) == None:
                 pass
             else:

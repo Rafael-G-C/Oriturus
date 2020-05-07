@@ -19,7 +19,7 @@ def main(path_to_file,name_of_file,read_write):
 
     #Send the whole text to "Oriturus_read" to get the tag_dict, the ref_order_info, and see if there's a !!ref_start tag
     ref_start_signaler = 0 
-    tag_dict,ref_info_dict,ref_start_signaler = Or.oriturus_read(file_lines,ref_start_signaler)
+    tag_dict,ref_list,ref_start_signaler = Or.oriturus_read(file_lines,ref_start_signaler)
 
     
     #Send lines to "Oriturus_write" to replace them with the changed ones
@@ -40,7 +40,7 @@ def main(path_to_file,name_of_file,read_write):
                 pass
             continue
         else: # if there are any braquets send it to Oriturus_write to rewrite the line
-            new_line = Ow.oriturus_write(line,tag_dict,ref_info_dict,linenum+1)
+            new_line = Ow.oriturus_write(line,tag_dict,ref_list,linenum+1)
             if read_write == 1:
                 new_line = new_line + "\n" #add it as a new line
                 text_rewriter(new_line,path_to_file,name_of_file) #rewrite it
@@ -50,7 +50,7 @@ def main(path_to_file,name_of_file,read_write):
     #Send the whole text to "bib_reorder" along with "ref_order_dict" to write new ordered bibliography
     if ref_start_signaler == 1: #if there's a !!ref_start tag
         print("Ordering bibliography...")
-        br.bib_writer(file_lines,path_to_file,name_of_file,ref_info_dict,read_write) #write the bibliography normally
+        br.bib_writer(file_lines,path_to_file,name_of_file,ref_list,read_write) #write the bibliography normally
     
     else:
         print("!!ref_sart tag not found Oriturus won't order for references\n")
@@ -65,13 +65,13 @@ def main(path_to_file,name_of_file,read_write):
 if __name__ == "__main__":
     print(f"Welcome to Oriturus the reference manager. version 2.1.0\nAvoid putting spaces between the braquets ex. [ Oriturus] [bird. ]\n")
 
-    name_of_file = "parcial_analitica"
-    path_to_file = "/home/kilimanjaro/Documents/borrar/"
+    #name_of_file = "parcial_analitica"
+    #path_to_file = "/home/kilimanjaro/Documents/borrar/"
         
-    #name_of_file = "test2.txt"
-    #path_to_file = "/home/kilimanjaro/Documents/Python/Oriturus/"
+    name_of_file = "test2.txt"
+    path_to_file = "/home/kilimanjaro/Documents/Python/Oriturus/"
     
-    read_write = 0 #read is 0 write is 1
+    read_write = 1 #read is 0 write is 1
     
     main(path_to_file,name_of_file,read_write)
 
