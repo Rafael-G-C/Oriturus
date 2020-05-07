@@ -1,6 +1,7 @@
 ## reading all the info
 import ref_ordering as ro
 import re
+import sys
 def oriturus_read(file_lines,ref_start_signaler):
 
     class tag_object(): #tag object that contains the name and the diccionary with all the references
@@ -38,13 +39,13 @@ def oriturus_read(file_lines,ref_start_signaler):
         
         #because simplest type tag is [tag.] and it does not fall into any category it is ignored
 
-    def ref_adder(caught_string,ref_info_dict,ref_index):
+    def ref_adder(caught_string,ref_info_dict,ref_index,linenum):
         category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # check if it is a complicated type ref ex. [REF1,REF2-REF3,REF4]
         if category_lookup == None:
             pass
         else:
             #group 1 catches REF1,REF2-REF3,REF4]
-            ref_info_dict,ref_index = ro.ref_indexer(category_lookup.group(1),ref_info_dict,ref_index) #call ref_ordering module to deal with it
+            ref_info_dict,ref_index = ro.ref_indexer(category_lookup.group(1),ref_info_dict,ref_index,linenum) #call ref_ordering module to deal with it
             return ref_info_dict, ref_index
         
         
@@ -77,7 +78,8 @@ def oriturus_read(file_lines,ref_start_signaler):
 
 
     # READING
-    for line in file_lines:
+    
+    for linenum, line in enumerate(file_lines):
 
         # look for the tag !!ref_start once found stop reading and tell return the signaler as 1
         if "!!ref_start" in line: 
@@ -86,19 +88,26 @@ def oriturus_read(file_lines,ref_start_signaler):
 
         line_as_strings = line.split() #split the line into strings
         for string in line_as_strings: #start looking at each string to see if it falls into any category
+                category_lookup = re.search("(\[(.+)\]){2,}",string)
+                if category_lookup == None:
+                    pass
+                else:
+                    continue
+                    
+                category_lookup = re.search("\[(.+)\.(.+)?\]",string) #type tag ex. [tag.REF1-REF2,REF3] or [tag.REF4] or [tag.]
+                if category_lookup == None:
+                    pass # if it doesn't fall into this type check the other
+                else:
+                    tag_adder(string,tag_dict)
+                    continue
+                    
+                
+                category_lookup = re.search("\[(.+)\]",string) #type ref [REF1,REF2-REF3] or [REF]
+                if category_lookup == None:
+                    continue #if it doesn't fall into this type just continue reading
+                else:
+                    ref_info_dict,ref_index = ref_adder(string,ref_info_dict,ref_index,linenum+1)
 
-            category_lookup = re.search("\[(.+)\.(.+)?\]",string) #type tag ex. [tag.REF1-REF2,REF3] or [tag.REF4] or [tag.]
-            if category_lookup == None:
-                pass # if it doesn't fall into this type check the other
-            else:
-                tag_adder(string,tag_dict)
-                continue
-            
-            category_lookup = re.search("\[(.+)\]",string) #type ref [REF1,REF2-REF3] or [REF]
-            if category_lookup == None:
-                continue #if it doesn't fall into this type just continue reading
-            else:
-                ref_info_dict,ref_index = ref_adder(string,ref_info_dict,ref_index)
             
     # READING 
     return tag_dict,ref_info_dict,ref_start_signaler

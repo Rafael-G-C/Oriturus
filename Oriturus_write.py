@@ -2,40 +2,44 @@ import ref_replacer as rp
 import re
 # Oriturus sends every line in the file and it may fall into the tag category [tag.name] or the ref category [REF]
 #oriturus write checks which category is and writes the corresponding information
-def oriturus_write(line,tag_dict,ref_info_dict):
+def oriturus_write(line,tag_dict,ref_info_dict,linenum):
     #
-    def tag_replacer(caught_string,tag_dict):
-        word_constructor = ""
-        tag_index_constructor = []
-        tag_caller = re.search("\[(.+)\.(.+(\-|\,).+\])",caught_string) #complicated type tag [tag.REF1-REF2,REF3]
-        if tag_caller == None:
-            pass
-        else:
-            #group 2 catches REF1-REF2,REF3]
-            for char in tag_caller.group(2):
-                if char != "," and char != "-" and char != "]":
-                    word_constructor += char
-                else:
-                    tag_index_constructor.append(str(tag_dict[tag_caller.group(1)].ref_info_dict[word_constructor]))
-                    tag_index_constructor.append(char)
-                    word_constructor = ""
-            joined_list = "".join(tag_index_constructor)
-            new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{joined_list}"
-            return new_string
+    def tag_replacer(caught_string,tag_dict,linenum):
+        try:
+            word_constructor = ""
+            tag_index_constructor = []
+            tag_caller = re.search("\[(.+)\.(.+(\-|\,).+\])",caught_string) #complicated type tag [tag.REF1-REF2,REF3]
+            if tag_caller == None:
+                pass
+            else:
+                #group 2 catches REF1-REF2,REF3]
+                for char in tag_caller.group(2):
+                    if char != "," and char != "-" and char != "]":
+                        word_constructor += char
+                    else:
+                        tag_index_constructor.append(str(tag_dict[tag_caller.group(1)].ref_info_dict[word_constructor]))
+                        tag_index_constructor.append(char)
+                        word_constructor = ""
+                joined_list = "".join(tag_index_constructor)
+                new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{joined_list}"
+                return new_string
 
-        tag_caller = re.search("\[(.+)\.(.+)\]",caught_string) #simple type tag [tag.name]
-        #group 1 catches tag
-        #group 2 catches name
-        if tag_caller == None:
-            pass
-        else:
-            new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{tag_dict[tag_caller.group(1)].ref_info_dict[tag_caller.group(2)]}"
+            tag_caller = re.search("\[(.+)\.(.+)\]",caught_string) #simple type tag [tag.name]
+            #group 1 catches tag
+            #group 2 catches name
+            if tag_caller == None:
+                pass
+            else:
+                new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{tag_dict[tag_caller.group(1)].ref_info_dict[tag_caller.group(2)]}"
+                return new_string
+            
+            #we just print the tag long
+            tag_caller = re.search("\[(.+)\.]",caught_string) # simplest type tag [a.]
+            new_string = f"{tag_dict[tag_caller.group(1)].tag_long}"
             return new_string
-        
-        #we just print the tag long
-        tag_caller = re.search("\[(.+)\.]",caught_string) # simplest type tag [a.]
-        new_string = f"{tag_dict[tag_caller.group(1)].tag_long}"
-        return new_string
+        except:
+            print(f'ERROR! line {linenum} "{tag_caller.group(1)}." tag not found make sure to initalize it with !!{tag_caller.group(1)}>>some_name!')
+            return "ERROR!"
 
     def ref_replacer(caught_string,ref_info_dict):
         category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # complicated type ref [REF1,REF2-REF3,REF4]
@@ -58,11 +62,19 @@ def oriturus_write(line,tag_dict,ref_info_dict):
     line_as_strings = line.split()
     for string in line_as_strings:
 
+        category_lookup = re.search("(\[(.+)\]){2,}",string)
+        if category_lookup == None:
+            pass
+        else:
+            print(f"ERROR! line {linenum} {string} contains side by side braquets")
+            string == "ERROR!"
+            continue
+
         category_lookup = re.search("(.+)?\[(.+)\.(.+)?\](.+)?",string)
         if category_lookup == None:
             pass
         else:
-            string = tag_replacer(string,tag_dict)
+            string = tag_replacer(string,tag_dict,linenum)
             if category_lookup.group(1) == None:
                 pass
             else:

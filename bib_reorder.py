@@ -1,4 +1,4 @@
-def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
+def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict,read_write):
 
 #the script that writes the bibliography in order
 
@@ -48,24 +48,38 @@ def bib_writer(file_lines,path_to_file,name_of_file,ref_order_dict):
         if error_code == 1: #print error message and write it to the file and the bib file
             line = line.strip("\n")
             error_message_one = (f"|| ERROR! CONTAINS EXTRA WHITESPACES OR BRAQUETS || {line}\n")
-            ordered_bibliography_maker(error_message_one)
-            add_to_text(error_message_one)
-            print(error_message_one)
+            if read_write == 1:
+                ordered_bibliography_maker(error_message_one)
+                add_to_text(error_message_one)
+                print(error_message_one)
+            else:
+                print(error_message_one)
             continue
-        
-        unordered_bib[stripped_ref] = call_ref[1] #add REF as a key to a dictionary that has words as value
-    
+        try:
+            unordered_bib[stripped_ref] = call_ref[1] #add REF as a key to a dictionary that has words as value
+        except:
+            print(f"ERROR! no information on {call_ref[0]}")
+            unordered_bib[stripped_ref] = "ERROR! no information found"
+
     for key in ref_order_dict: #for every key in the ordered dict 
         if key in unordered_bib: #check every key in the dictionary that was just made and if they match write the ordered ref
-            ordered_bibliography_maker(f"{key}|[{str(ref_index)}] {unordered_bib[key]}")
-            add_to_text(f"[{str(ref_index)}] {unordered_bib[key]}")
-            ref_index +=1
+            if read_write == 1:
+                ordered_bibliography_maker(f"{key}|[{str(ref_index)}] {unordered_bib[key]}")
+                add_to_text(f"[{str(ref_index)}] {unordered_bib[key]}")
+                ref_index +=1
+            else:
+                ref_index +=1
+                pass
         else: #otherwise send the error message
             error_message_two = (f"|| ERROR! NOT FOUND || {key}|[{ref_index}]\n")
-            ordered_bibliography_maker(error_message_two)
-            add_to_text(error_message_two)
-            print(error_message_two)
-            ref_index += 1
+            if read_write == 1:
+                ordered_bibliography_maker(error_message_two)
+                add_to_text(error_message_two)
+                print(error_message_two)
+                ref_index += 1
+            else:
+                print(error_message_two)
+                ref_index += 1
 
      
 if __name__ == "__main__":
