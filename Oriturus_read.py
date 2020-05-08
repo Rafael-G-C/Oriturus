@@ -86,6 +86,14 @@ def oriturus_read(file_lines,ref_start_signaler):
         if "!!ref_start" in line: 
             ref_start_signaler = 1 
             break
+        
+        tag_catcher = re.search("^!{2}(.+)>>{1}(.+)!",line)
+        #group 1 catches tag
+        #group 2 catches name
+        if tag_catcher == None:
+            pass
+        else:
+            continue
 
         line_as_strings = line.split() #split the line into strings
         for string in line_as_strings: #start looking at each string to see if it falls into any category

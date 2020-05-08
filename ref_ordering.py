@@ -7,7 +7,6 @@ import copy as cp
 ## A bug was found on 5/may/2020. bug [REF1-REF3] [A] [B] [REF1-REF4] translates into [1-3] [4] [5] [1-6] because there is a global index and REF4 is added last it is given the wrong index
 
 def ref_indexer(caught_ref,full_list):
-    volatile_list = []
     ref_constructor = ""
     last_char_signaler = 0
 
@@ -47,7 +46,7 @@ def ref_indexer(caught_ref,full_list):
                     continue
 
                 else:
-                    volatile_list.append(ref_constructor)
+                    full_list.append(ref_constructor)
                     ref_constructor = ""
                     continue
             
