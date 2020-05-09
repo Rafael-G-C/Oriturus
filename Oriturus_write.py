@@ -18,7 +18,10 @@ def oriturus_write(line,tag_dict,ref_list,linenum):
                         word_constructor += char
                     else:
                         tag_index_constructor.append(str(tag_dict[tag_caller.group(1)].ref_list.index(word_constructor)+1))
-                        tag_index_constructor.append(char)
+                        
+                        if char != "]":
+                            tag_index_constructor.append(char)
+                        
                         word_constructor = ""
                 joined_list = "".join(tag_index_constructor)
                 new_string = f"{tag_dict[tag_caller.group(1)].tag_long}{joined_list}"
@@ -41,73 +44,42 @@ def oriturus_write(line,tag_dict,ref_list,linenum):
             return "ERROR!"
 
     def ref_replacer(caught_string,ref_list):
-        category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # complicated type ref [REF1,REF2-REF3,REF4]
+        ref_catcher = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # complicated type ref [REF1,REF2-REF3,REF4]
         #group 1 catches REF1,REF2-REF3,REF4]
-        if category_lookup == None:
+        if ref_catcher == None:
             pass
         else:
-            replaced_string = rp.text_writer(category_lookup.group(1),ref_list)
+            replaced_string = rp.text_writer(ref_catcher.group(1),ref_list)
             return replaced_string
 
-        category_lookup = re.search("\[(.+)\]",caught_string) # simple type ref [REF1]
+        ref_catcher = re.search("\[(.+)\]",caught_string) # simple type ref [REF1]
         #group 1 catches REF1
-        replaced_string = str(f"[{ref_list.index(category_lookup.group(1))+1}]")
+        replaced_string = str(f"[{ref_list.index(ref_catcher.group(1))+1}]")
         return replaced_string
 
     #WRITTING
     #because words could be mixed with the refs or tags ex hello[REF]bye we catch them and write them along with the changed ref
-    new_line = ""
-    string = ""
-    line_as_strings = line.split()
-    for string in line_as_strings:
+    line = re.sub("\[![^\[\]]+\]","",line) # delete al comment tags
 
-        category_lookup = re.search("(\[(.+)\]){2,}",string)
-        if category_lookup == None:
-            pass
-        else:
-            print(f"ERROR! line {linenum} {string} contains side by side braquets")
-            string == "ERROR!"
-            continue
-
-        category_lookup = re.search("(.+)?\[(.+)\.(.+)?\](.+)?",string) #tag catcher
-        if category_lookup == None:
-            pass
-        else:
-            string = tag_replacer(string,tag_dict,linenum)
-            if category_lookup.group(1) == None:
-                pass
-            else:
-                string = category_lookup.group(1) + string
-            if category_lookup.group(4) == None:
-                pass
-            else:
-                string = string + category_lookup.group(4)
-            
-            new_line += string + " "
-            string = ""
-            continue
+    category_lookup = re.findall("(\[[^\[\]]+\.[^\[\]]+\])",line) #tag catcher
+    if len(category_lookup) == 0:
+        pass
+    else:
+        for item in category_lookup:
+            item = item.replace(" ","")
+            replaced_string = tag_replacer(item,tag_dict,linenum)
+            line = line.replace(item,replaced_string)
+    
+    category_lookup = re.findall("\[[^\[\]\.]+\]",line) # ref catcher
+    if len(category_lookup) == 0:
+        pass
+    else:
+        for item in category_lookup:
+            cleaned_item = item.replace(" ","")
+            replaced_string = ref_replacer(cleaned_item,ref_list)
+            line = line.replace(item,replaced_string)
         
-        category_lookup = re.search("(.+)?\[(.+)\](.+)?",string) # ref catcher
-        if category_lookup == None:
-            pass
-        else:
-            string = ref_replacer(string,ref_list)
-            if category_lookup.group(1) == None:
-                pass
-            else:
-                string = category_lookup.group(1) + string
-            if category_lookup.group(3) == None:
-                pass
-            else:
-                string = string + category_lookup.group(3)
-            
-            new_line += string + " "
-            string = ""
-            continue
-        
-        new_line += string + " "
-        string = ""
-    return new_line
+    return line
     #WRITTING
 
 if __name__ == "__main__":

@@ -26,11 +26,12 @@ def main(path_to_file,name_of_file,read_write):
     for linenum, line in enumerate(file_lines):
         if "!!ref_start" in line: #break at the !!ref_start tag
             break
-        tag_catcher = re.search("^!{2}(.+)>>{1}(.+)!",line) #look for any tags !!tag>>tag_name
+        tag_catcher = re.search("!{2}.+!?",line) #look for any tags !!tag>>tag_name! or !!comment!
         braquet_catcher = re.search("\[(.+)\]", line) # look for any type of braquet [Oriturus] [Turus.]
         if tag_catcher == None:
             pass # if no tags found continue
         else:
+            tag_catcher = re.search("[^.]!{2}.+!?",line)
             continue # ignore all tags
         
         if braquet_catcher == None:
@@ -65,11 +66,11 @@ def main(path_to_file,name_of_file,read_write):
 if __name__ == "__main__":
     print(f"Welcome to Oriturus the reference manager. version 2.1.0\nAvoid putting spaces between the braquets ex. [ Oriturus] [bird. ]\n")
 
-    #name_of_file = "parcial_analitica"
-    #path_to_file = "/home/kilimanjaro/Documents/borrar/"
-        
     name_of_file = "test2.txt"
     path_to_file = "/home/kilimanjaro/Documents/Python/Oriturus/"
+        
+    #name_of_file = "Poliuretano_inv"
+    #path_to_file = "/home/kilimanjaro/Universidad_carentena/Polimeros/"
     
     read_write = 1 #read is 0 write is 1
     

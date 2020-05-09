@@ -68,7 +68,7 @@ def oriturus_read(file_lines,ref_start_signaler):
     #read everything and if you see anything like !!tag>>name!
     #even reading the whole text could slow the program this method let's us write the tags wherever we want
     for line in file_lines:
-            tag_catcher = re.search("^!{2}(.+)>>{1}(.+)!",line)
+            tag_catcher = re.search("!{2}(.+)>>{1}(.+)!",line)
             #group 1 catches tag
             #group 2 catches name
             if tag_catcher == None:
@@ -86,37 +86,29 @@ def oriturus_read(file_lines,ref_start_signaler):
         if "!!ref_start" in line: 
             ref_start_signaler = 1 
             break
+        #!{2}[^!{2}]+!{2}   #Comment type tag
         
-        tag_catcher = re.search("^!{2}(.+)>>{1}(.+)!",line)
-        #group 1 catches tag
-        #group 2 catches name
-        if tag_catcher == None:
-            pass
-        else:
+        category_lookup = re.search("\[(.+)\]",line) 
+        if category_lookup == None:
             continue
 
-        line_as_strings = line.split() #split the line into strings
-        for string in line_as_strings: #start looking at each string to see if it falls into any category
-                
-                category_lookup = re.search("(\[(.+)\]){2,}",string) #two or more braquets causes errors
-                if category_lookup == None:
-                    pass
-                else:
-                    continue
-                    
-                category_lookup = re.search("\[(.+)\.(.+)?\]",string) #type tag ex. [tag.REF1-REF2,REF3] or [tag.REF4] or [tag.]
-                if category_lookup == None:
-                    pass # if it doesn't fall into this type check the other
-                else:
-                    tag_adder(string,tag_dict,linenum+1)
-                    continue
-                    
-                
-                category_lookup = re.search("\[(.+)\]",string) #type ref [REF1,REF2-REF3] or [REF]
-                if category_lookup == None:
-                    continue #if it doesn't fall into this type just continue reading
-                else:
-                    ref_list = ref_adder(string,ref_list)
+        category_lookup = re.findall("(\[[^\[\]]+\.[^\[\]]+\])",line)
+        #type tag ex. [tag.REF1-REF2,REF3] or [tag.REF4] or [tag.]
+        if len(category_lookup) == 0:
+            pass # if it doesn't fall into this type check the other
+        else:
+            for item in category_lookup:
+                item = item.replace(" ","")
+                tag_adder(item,tag_dict,linenum+1)
+            
+        
+        category_lookup = re.findall("\[[^\[\]\.\!)]+\]",line) #type ref [REF1,REF2-REF3] or [REF]
+        if len(category_lookup) == 0:
+            continue #if it doesn't fall into this type just continue reading
+        else:
+            for item in category_lookup:
+                item = item.replace(" ","")
+                ref_list = ref_adder(item,ref_list)
 
             
     # READING 
