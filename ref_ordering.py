@@ -3,8 +3,6 @@ import copy as cp
 #we need to look re write the refs from each char and stop whenever we see a "," "-" or "]" and see if the re written ref is in the dictionary if it's not then
 #add it, otherwise ignore it
 
-## A bug was found on 5/may/2020. bug [REF1-REF3] [A] [B] [REF1-REF4] translates into [1-3] [4] [5] [1-6] because there is a global index and REF4 is added last it is given the wrong index
-
 def ref_indexer(string,caught_ref,full_list,linenum,bib_list):
     ref_constructor = ""
     
@@ -26,7 +24,7 @@ def ref_indexer(string,caught_ref,full_list,linenum,bib_list):
             continue
 
         if char == "-":
-            print(f'WARNING! line {linenum} "{string}" ORITURUS DEALS WITH HYPHENS ON ITS OWN THERE IS NO NEED TO WRITE THEM, HYPHEN WILL BE TREATED LIKE A COMMA')
+            print(f'WARNING! line {linenum} "{string}" ORITURUS DEALS WITH HYPHENS ON ITS OWN TEXT WILL BE IGNORED')
             ref_constructor = ""
             continue
 

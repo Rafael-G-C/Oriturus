@@ -2,16 +2,7 @@
 import ref_ordering as ro
 import re
 import sys
-def oriturus_read(file_lines,ref_start_signaler,bib_list):
-
-    class tag_object(): #tag object that contains the name and the diccionary with all the references
-        def __init__(self,tag_long):
-            self.tag_long = tag_long
-            self.ref_list = []
-        def add_ref_info(self,ref): #will add references to the dictionary 
-            if ref not in self.ref_list: 
-                self.ref_list.append(ref) #add the reference
-
+def oriturus_read(file_lines,ref_start_signaler,bib_list,tag_dict):
 
     def tag_adder(string,caught_string,tag_dict,linenum):
         try:
@@ -40,8 +31,10 @@ def oriturus_read(file_lines,ref_start_signaler,bib_list):
                 #group 1 catches tag
                 #group 2 catches REF
                 tag_dict[tag_caller.group(1)].add_ref_info(tag_caller.group(2)) #call the tag_dict inside the "tag" key and call the function add_ref_info in it
-            
-            #because simplest type tag is [tag.] and it does not fall into any category it is ignored
+                return
+            if caught_string[1:-2] not in tag_dict:
+                raise Exception
+            return
         except:
             print(f'WARNING! line {linenum+1} tag not found oriturus will rewrite "{string}"')
             
@@ -68,23 +61,7 @@ def oriturus_read(file_lines,ref_start_signaler,bib_list):
         return ref_list #if it is in the dictionary return eveything
             
 
-    tag_dict = {}
     ref_list = []
-
-    #making tags 
-    #read everything and if you see anything like !!tag>>name!
-    #even reading the whole text could slow the program this method let's us write the tags wherever we want
-    for line in file_lines:
-            tag_catcher = re.search("!{2}(.+)>>{1}(.+)!",line)
-            #group 1 catches tag
-            #group 2 catches name
-            if tag_catcher == None:
-                pass
-            else:
-                tag_dict[tag_catcher.group(1)] = tag_object(tag_catcher.group(2)) #add to the tag dict the "tag" make an object from it and initialize this object with "name"
-                continue
-
-
     # READING
     
     for linenum, line in enumerate(file_lines):
@@ -98,7 +75,7 @@ def oriturus_read(file_lines,ref_start_signaler,bib_list):
         if category_lookup == None:
             continue
 
-        category_lookup = re.findall("(\[[^\[\]\!]+\.[^\[\]]+\])",line)
+        category_lookup = re.findall("(\[[^\[\]]+\.[^\[\]]*\])",line)
         #type tag ex. [tag.REF1-REF2,REF3] or [tag.REF4] or [tag.]
         if len(category_lookup) == 0:
             pass # if it doesn't fall into this type check the other
@@ -119,7 +96,7 @@ def oriturus_read(file_lines,ref_start_signaler,bib_list):
 
             
     # READING 
-    return tag_dict,ref_list
+    return ref_list
 
 if __name__ == "__main__":
     print("Oriturus_read running as main")

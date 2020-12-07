@@ -1,68 +1,14 @@
+!!oriturus>>Oriturus superciliosus!
+!!pass>>Passerellidae!
 !!fig>>Figure !
-!!sec>>Seccion !
-!!tab>>Table !
-!!orit>>Zacatonero Serrano tambien conocido como Oriturus superciliosus!
-!!stop>>RAINING!!
-tortor egestas, [stop.] venenatis [QQ]odio sed, cursus sapien. Nunc dictum dui sodales sem commodo, vel hendrerit eros vehicula. Mauris leo elit, euismod ac bibendum ut, vulputate eu massa.
+Stripped Sparrow[wiki] 
+The striped sparrow [oriturus.] is a species of bird in the family [pass.]. It is monotypic within the genus Oriturus.
 
-[fig.birds] birds flying
+[fig.sparrow] Striped sparrow
 
-[sec.bird]
-!!brd>>.!
-[sec.bird] [brd.brd1]
-Class aptent taciti sociosqu ad litora torquent per conubia [bird1-bird3]nostra, per inceptos himenaeos. Proin sit amet lacus suscipit massa consectetur sollicitudin vel nec ante. Pellentesque vestibulum velit et leo malesuada luctus. Nam eleifend ac augue suscipit tempor. Sed rutrum egestas arcu, in sodales mauris posuere vel. Ut at sagittis augue. Nunc tortor sem, elementum a pellentesque ac, eleifend a quam. Donec quis finibus elit. Aliquam sit amet ex augue. Nullam porta erat ligula, vitae malesuada sapien porta a. Pellentesque nunc ligula, tempor ac metus pharetra, ultrices dignissim urna. Praesent elit est, pellentesque a tristique vitae, ultricies vitae mi. Morbi massa justo, blandit vel rhoncus eget, mattis a mi.
+It is endemic to Mexico where its natural habitats are subtropical or tropical moist montane forest and temperate grassland.[IUCN]
 
-Praesent eget [stop.] mollis massa. Duis vestibulum velit et felis dapibus vulputate. [A]In hac habitasse platea dictumst. Morbi nec diam purus. Sed vitae viverra dui. In eu scelerisque nunc. Fusce non vulputate urna. Vestibulum egestas ligula vel elit maximus, non pellentesque lectus ullamcorper. In vel odio ut felis ultrices lobortis volutpat eget massa. Sed eu sagittis elit, quis cursus felis. Sed tincidunt lobortis porta.
-
-
-[fig.birds2] birds walking
-
-Aenean aliquam scelerisque tortor eget gravida. Donec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis purus quis tellus convallis auctor. Donec a ligula sodales nisi vestibulum rutrum[23]. Proin ante elit, vehicula nec vestibulum nec, laoreet et nisi. Integer sollicitudin, velit sed elementum semper, magna massa dapibus quam, eu tempus lacus justo vel sapien.
-
-[tab.wings] birds singing
-
-Maecenas convallis orci nulla, tristique tempor lorem molestie in. Quisque eget sodales elit[21]. Phasellus vehicula accumsan purus in molestie. Nulla nec auctor tortor, non ultricies nisi. Sed ex dui, gravida iaculis varius id, commodo non arcu. Quisque in tempus orci. Quisque rutrum mollis lectus, in lacinia leo tincidunt id. Curabitur aliquet turpis a purus elementum ullamcorper. Pellentesque quis tortor eu ligula aliquam sollicitudin. Phasellus sit amet purus rutrum, gravida neque sit amet, sagittis quam
-
-[orit.]
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada dui ipsum, at placerat erat facilisis eget. Cras imperdiet gravida leo, et semper tellus euismod in. Sed pulvinar diam et sapien euismod aliquam. Quisque in diam lectus. Morbi nec tortor egestas, venenatis odio sed, cursus sapien. Nunc dictum dui sodales sem commodo, vel hendrerit eros vehicula. Mauris leo elit, euismod ac bibendum ut, vulputate eu massa[22].
-
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sit amet lacus suscipit massa consectetur sollicitudin vel nec ante. Pellentesque vestibulum velit et leo malesuada luctus. Nam eleifend ac augue suscipit tempor. Sed rutrum egestas arcu, in sodales mauris posuere vel. Ut at sagittis augue. Nunc tortor sem, elementum a pellentesque ac, eleifend a quam. Donec quis finibus elit. Aliquam sit amet ex augue. Nullam porta erat ligula, vitae malesuada sapien porta a. Pellentesque nunc ligula, tempor ac metus pharetra, ultrices dignissim urna. Praesent elit est, pellentesque a tristique vitae, ultricies vitae mi. Morbi massa justo, blandit vel rhoncus eget, mattis a mi.
-
-Praesent eget mollis massa. Duis vestibulum velit et felis dapibus vulputate. In hac habitasse platea dictumst. Morbi nec diam purus. Sed vitae viverra dui. In eu scelerisque nunc. Fusce non vulputate urna. Vestibulum egestas ligula vel elit maximus, non pellentesque lectus ullamcorper. In vel odio ut felis ultrices lobortis volutpat eget massa. Sed eu sagittis elit, quis cursus felis. Sed tincidunt lobortis porta.
-
-Aenean aliquam scelerisque tortor eget gravida. Donec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis purus quis tellus convallis auctor. Donec a ligula sodales nisi vestibulum rutrum. Proin ante elit, vehicula nec vestibulum nec, laoreet et nisi. Integer sollicitudin, velit sed elementum semper, magna massa dapibus quam, eu tempus lacus justo vel sapien.
-
-Maecenas convallis orci nulla, tristique tempor lorem molestie in. Quisque eget sodales elit. Phasellus vehicula accumsan [FELL1,FELL2,FELL3]purus in molestie. Nulla nec auctor tortor, non ultricies nisi. Sed ex dui, gravida iaculis varius id, commodo non arcu. Quisque in tempus orci. Quisque rutrum mollis lectus, in lacinia leo tincidunt id. Curabitur aliquet turpis a purus elementum ullamcorper. Pellentesque quis tortor eu ligula aliquam sollicitudin. Phasellus sit amet purus rutrum, gravida neque sit amet, sagittis quam
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada dui ipsum, at placerat erat facilisis eget. Cras imperdiet gravida leo, et semper tellus euismod in. Sed pulvinar diam et sapien euismod aliquam. Quisque in diam lectus. Morbi nec tortor egestas, venenatis odio sed, cursus sapien. Nunc dictum dui sodales sem commodo, vel hendrerit eros vehicula. Mauris leo elit, euismod ac bibendum ut, vulputate eu massa.
-
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sit amet lacus suscipit massa consectetur sollicitudin vel nec ante. Pellentesque vestibulum velit et leo malesuada luctus. Nam eleifend ac augue suscipit tempor. Sed rutrum egestas arcu, in sodales mauris posuere vel. Ut at sagittis augue. Nunc tortor sem, elementum a pellentesque ac, eleifend a quam. Donec quis finibus elit. Aliquam sit amet ex augue. Nullam porta erat ligula, vitae malesuada sapien porta a. Pellentesque nunc ligula, tempor ac metus pharetra, ultrices dignissim urna. Praesent elit est, [bird2]pellentesque a tristique vitae, ultricies vitae mi. Morbi massa justo, blandit vel rhoncus eget, mattis a mi.
-
-Praesent eget mollis massa. Duis vestibulum velit et felis dapibus vulputate. In hac habitasse platea dictumst. Morbi nec diam purus. Sed vitae viverra dui. In eu scelerisque nunc. Fusce non vulputate urna. Vestibulum egestas ligula vel elit maximus, non pellentesque lectus ullamcorper. In vel odio ut felis ultrices lobortis volutpat eget massa. Sed eu [YELLING]sagittis elit, quis cursus [TWE]felis. Sed tincidunt lobortis porta.
-
-Aenean aliquam scelerisque tortor eget gravida. Donec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis purus quis tellus convallis auctor. Donec a ligula sodales nisi vestibulum rutrum. Proin ante elit, vehicula nec vestibulum nec, laoreet et nisi. Integer sollicitudin, velit sed elementum semper, magna massa dapibus quam, eu tempus lacus justo vel sapien.
-
-Maecenas [WILL_NOT_BE_FOUND]convallis orci nulla, tristique tempor lorem molestie in. Quisque eget sodales elit. Phasellus vehicula accumsan purus in molestie. Nulla nec auctor tortor, non ultricies nisi. Sed ex dui, gravida iaculis varius id, commodo non arcu. Quisque in tempus orci. Quisque rutrum mollis lectus, in lacinia leo tincidunt id. Curabitur aliquet turpis a purus elementum ullamcorper. Pellentesque quis tortor eu ligula aliquam sollicitudin. Phasellus sit amet purus rutrum, gravida neque sit amet, sagittis quam [24]
-
-bibliography
-!!ref_start
-[bird1] AAAAAAAAAAAAAAAAAA
-[bird2] BBBBBBBBBBBBBBBBBBB
-[bird3] CCCCCCCCCCCCCCCCCC
-[YELLING] DDDDDDDDDDDDDDDDDDDDDdd
-[TWE] EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-[10] FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf
-[3] QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQq
-[1] XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-[FALL] AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-[FELL1] RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-[FELL2] LLLLLLLLLLLL
-[[FELL3] Maecenas convallis orci nulla, tristique tempor lorem molestie in. Quisque eget sodales elit. Phasellus vehicula accumsan purus in molestie. Nulla nec auctor tortor, non ultricies nisi. Sed ex dui, gravida iaculis varius id, commodo non arcu. Quisque in tempus orci. Quisque rutrum mollis lectus, in lacinia leo tincidunt id. Curabitur aliquet turpis a purus elementum ullamcorper. Pellentesque quis tortor eu ligula aliquam sollicitudin. Phasellus sit amet purus rutrum, gravida neque sit amet, sagittis quam
-[20] Maecenas convallis orci nulla, tristique tempor lorem molestie in. Quisque eget sodales elit. Phasellus vehicula accumsan purus in molestie. Nulla nec auctor tortor, non ultricies nisi. Sed ex dui, gravida iaculis varius id, commodo non arcu. Quisque in tempus 
-[21] X
-[22] onec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis 
-[24] UUUUU
-[23] PPPPPPPP
-[A] //onec turpis quam, fringilla vel tempor ut, lacinia vitae mauris. Fusce vulputate aliquam felis, at ornare justo efficitur eget. Integer sagittis 
-[QQ] QQQ
+Bibliography
+!!ref_start!
+[IUCN] BirdLife International (2012). "Oriturus superciliosus". IUCN Red List of Threatened Species. 2012. Retrieved 26 November 2013.
+[wiki] https://en.wikipedia.org/wiki/Striped_sparrow

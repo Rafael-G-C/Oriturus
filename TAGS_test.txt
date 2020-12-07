@@ -1,0 +1,6 @@
+wiki|[1] https://en.wikipedia.org/wiki/Striped_sparrow
+IUCN|[2] BirdLife International (2012). "Oriturus superciliosus". IUCN Red List of Threatened Species. 2012. Retrieved 26 November 2013.
+
+oriturus.|Oriturus superciliosus
+pass.|Passerellidae
+fig.sparrow|Figure 1
