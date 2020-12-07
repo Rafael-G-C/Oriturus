@@ -1,10 +1,13 @@
 ## Oriturus: A python reference manager
 
-to run oriturus go into the directory where the file is located and run
+To run oriturus go into the directory where the file is located and run
+
 `python3 ../Oriturus.py file` to read a file 
+
 `python3 ../Oriturus.py -w file` to write two new files ORDERED_file and TAGS_file
 
 **QUICK GUIDE**
+```
 !!tag>>long_name! << tag declaration
 
 [tag.] << tag calling just the long name
@@ -34,3 +37,4 @@ text
 text
 text
 !#
+```
