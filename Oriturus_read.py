@@ -1,102 +1,78 @@
-## reading all the info
-import ref_ordering as ro
 import re
-import sys
-def oriturus_read(file_lines,ref_start_signaler,bib_list,tag_dict):
 
-    def tag_adder(string,caught_string,tag_dict,linenum):
-        try:
-            word_constructor = ""
-            tag_caller = re.search("\[(.+)\.(.+(\-|\,).+\])",caught_string) #check if it is a complicated type tag ex [tag.REF1,REF2-REF3]
-            if tag_caller == None:
-                pass
-            else:
-                #group 1 catches tag
-                #group 2 catches REF1,REF2-REF3]
-                for char in tag_caller.group(2): #go to every char in group two if the char is not a "-" or "," 
-                    if char != "-" and char != "," and char != "]":
-                        word_constructor += char #write the char
-                    else:
-                        if char == "-":
-                            print(f'WARNING! line {linenum+1} "{string}" ORITURUS DEALS WITH HYPHENS ON ITS OWN THERE IS NO NEED TO WRITE THEM, HYPHEN WILL BE TREATED LIKE A COMMA')
-                        
-                        tag_dict[tag_caller.group(1)].add_ref_info(word_constructor) #call the tag_dict inside the "tag" key and call the function add_ref_info in it
-                        word_constructor = "" #restart the word_constructor
-                return
+#tag object that contains the name and the dictionary with all the references
+class tag_object(): 
+        def __init__(self,tag_long):
+            self.tag_long = tag_long
+            self.ref_dict = {}
+
+def oriturus_read(file_lines):
+
+    def tag_ref_adder(caught_string,tag_dict,linenum):
+        #remove the "[]"" and split it using the "." 
+        #the length of the split defines a Reference (1) or tag (2)
+        #a second split is done to get all the references and add them accordingly
+        #if they were declared otherwise return error
+        cleaned_string = caught_string.strip('[]').split(".")
+        
+        if len(cleaned_string) == 1 and "REFERENCES" in tag_dict:
+            refs = cleaned_string[0].split(",")
+            for ref in refs:
+                if ref in tag_dict["REFERENCES"].ref_dict and ref not in changes_dict["ref_order"]:
+                    changes_dict["ref_order"][ref] = len(changes_dict["ref_order"]) + 1
                 
-            tag_caller = re.search("\[(.+)\.(.+)\]",caught_string) #check if it a simple type tag ex. [tag.REF]
-            if tag_caller == None:
-                pass
-            else:
-                #group 1 catches tag
-                #group 2 catches REF
-                tag_dict[tag_caller.group(1)].add_ref_info(tag_caller.group(2)) #call the tag_dict inside the "tag" key and call the function add_ref_info in it
+                elif ref not in tag_dict["REFERENCES"].ref_dict:
+                    print(f'line {linenum + 1} "{ref}" reference not declared')
+        
+        elif len(cleaned_string) == 2:        
+            tag = cleaned_string[0]
+            refs = cleaned_string[1].split(",")
+
+            if tag not in tag_dict:
+                print(f'line {linenum + 1} "{tag}" tag not declared')
                 return
-            if caught_string[1:-2] not in tag_dict:
-                raise Exception
-            return
+            
+            for ref in refs:
+                if ref not in tag_dict[tag].ref_dict and ref != '':
+                    tag_dict[tag].ref_dict[ref] = len(tag_dict[tag].ref_dict) + 1
+                
+
+
+    #changes_dict is used to track what lines to remove, change and the order of the refs    
+    changes_dict = {"remove" : {}, "change": {}, "ref_order" : {}}
+    tag_dict = {}
+
+    if "!!ref_start!\n" in file_lines:
+        reference_tag = tag_object("REFERENCES")
+        tag_dict = {"REFERENCES" : reference_tag}
+        ref_line = file_lines.index("!!ref_start!\n") + 1
+        changes_dict["REFERENCES"] = ref_line
+        try:
+            for reference in file_lines[changes_dict["REFERENCES"]:]:
+                reference = reference.split(" ", 1)
+                tag_dict["REFERENCES"].ref_dict[reference[0].strip("[]")] = reference[1]
         except:
-            print(f'WARNING! line {linenum+1} tag not found oriturus will rewrite "{string}"')
-            
-    def ref_adder(string,caught_string,ref_list,linenum):
-        category_lookup = re.search("\[((.+)(\,|\-)(.+)\])",caught_string) # check if it is a complicated type ref ex. [REF1,REF2-REF3,REF4]
-        if category_lookup == None:
-            pass
-        else:
-            #group 1 catches REF1,REF2-REF3,REF4]
-            ref_list = ro.ref_indexer(string,category_lookup.group(1),ref_list,linenum+1,bib_list) #call ref_ordering module to deal with it
-            return ref_list
-        
-        
-        category_lookup = re.search("\[(.+)\]",caught_string) # simple type ref [REF]
-        #group 1 catches REF
-        if category_lookup.group(1) not in bib_list:
-            print(f'WARNING! line {linenum+1} reference not found Oriturus will rewrite "{string}"')
-            return ref_list
-        
-        if category_lookup.group(1) not in ref_list: #check if REF isn't in the dictionary
-            ref_list.append(category_lookup.group(1))
-            return ref_list
-        
-        return ref_list #if it is in the dictionary return eveything
-            
-
-    ref_list = []
-    # READING
+            print("No References below !!ref_start")
     
+        file_lines = file_lines[:ref_line]
+    else:
+        print("No !!ref_start in file. References won't be ordered")
+    #begin reading lines
     for linenum, line in enumerate(file_lines):
-
-        # look for the tag !!ref_start once found stop reading and tell return the signaler as 1
-        if "!!ref_start" in line: 
-            break
-        #!{2}[^!{2}]+!{2}   #Comment type tag
         
-        category_lookup = re.search("\[(.+)\]",line) 
-        if category_lookup == None:
-            continue
+        #!!item[0]>>item[1]!
+        tag_declare = re.findall("!{2}(.+)>>{1}(.+)!",line)
+        for item in tag_declare:  
+            changes_dict["remove"][linenum] = None
+            tag_dict[item[0]] = tag_object(item[1]) 
 
-        category_lookup = re.findall("(\[[^\[\]]+\.[^\[\]]*\])",line)
-        #type tag ex. [tag.REF1-REF2,REF3] or [tag.REF4] or [tag.]
-        if len(category_lookup) == 0:
-            pass # if it doesn't fall into this type check the other
-        else:
-            for item in category_lookup:
-                cleaned_item = item.replace(" ","")
-                tag_adder(item,cleaned_item,tag_dict,linenum+1)
-            
-        
-        if ref_start_signaler != 0:
-            category_lookup = re.findall("\[[^\[\]\.\!)]+\]",line) #type ref [REF1,REF2-REF3] or [REF]
-            if len(category_lookup) == 0:
-                continue #if it doesn't fall into this type just continue reading
-            else:
-                for item in category_lookup:
-                    cleaned_item = item.replace(" ","")
-                    ref_list = ref_adder(item,cleaned_item,ref_list,linenum)
+        #any type of tag [a] [b.] [a,b,c] [ex.a,b,c]
+        tag_ref_catcher = re.findall("\[[^[]+\]",line)
+        for item in tag_ref_catcher:
+            changes_dict["change"][linenum] = None
+            tag_ref_adder(item,tag_dict,linenum)
 
-            
-    # READING 
-    return ref_list
+    return tag_dict,changes_dict        
 
 if __name__ == "__main__":
     print("Oriturus_read running as main")
