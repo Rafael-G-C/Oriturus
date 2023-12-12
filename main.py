@@ -1,3 +1,5 @@
+from sys import argv
+from os import getcwd
 import Oriturus_read as Or
 import Oriturus_write as Ow
 
@@ -20,9 +22,9 @@ def main(path_to_file,name_of_file,read_write):
 if __name__ == "__main__":
     print(f"Welcome to Oriturus the reference manager. version 1.1.0")
 
-    path_to_file = ""
-    name_of_file = ""
-    read_write = 0
+    path_to_file = getcwd() + "/"
+    name_of_file = argv[1]
+    read_write = 1
 
     
     main(path_to_file,name_of_file,read_write)
