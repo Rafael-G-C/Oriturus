@@ -13,11 +13,13 @@ def oriturus_write(file_lines,tag_dict,changes_dict):
         for ref in found_refs:
             refs.append(dictionary[ref])
             
-        #gets a working copy out of said list
-        #makes a list of sequential references given the current lenght of the working list and the starting number
-        #ex. [1,2,3] given a length "3" and a starting number "1"
-        #if there are only two refs then add a comma otherwise if they are consecutive add a hyphen ex. [2,4] = 2,4 [2,3,4] = 2-4
-        #remove those from the working directory and go over it again
+        '''
+        gets a working copy out of said list
+        makes a list of sequential references given the current lenght of the working list and the starting number
+        ex. [1,2,3] given a length "3" and a starting number "1"
+        if there are only two refs then add a comma otherwise if they are consecutive add a hyphen ex. [2,4] = 2,4 [2,3,4] = 2-4
+        remove those from the working directory and go over it again
+        '''
         refs.sort()
         working = cp.deepcopy(refs)
         cleaned = []
@@ -35,10 +37,12 @@ def oriturus_write(file_lines,tag_dict,changes_dict):
         return ",".join(cleaned)
     
     def tag_replacer(line):
-        #cycles through all the tags found
-        #remove the "[]"" and split it using the "." 
-        #the length of the split defines a Reference (1) or tag (2)
-        #a second split is done to get all the references and fix them
+        '''
+        cycles through all the tags found
+        remove the "[]"" and split it using the "." 
+        the length of the split defines a Reference (1) or tag (2)
+        a second split is done to get all the references and fix them
+        '''
         tag_ref_catcher = re.findall("\[[^[]+\]",line)
         swapped_str = ""
         for tag_caught in tag_ref_catcher:
